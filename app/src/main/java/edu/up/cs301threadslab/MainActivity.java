@@ -15,11 +15,12 @@ import android.widget.SeekBar;
  * @version Fall 2015
  */
 public class MainActivity extends Activity
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Runnable {
+        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private AnimationView myAV;
     private Button theButton;
     private SeekBar theSeekBar;
+    private AnimationThread at;
 
     boolean isRunning = true;
 
@@ -40,6 +41,9 @@ public class MainActivity extends Activity
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
 
+        at = new AnimationThread(myAV);
+        at.start();
+
     }//onClick
 
     @Override
@@ -59,25 +63,4 @@ public class MainActivity extends Activity
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
 
-    CountDownTimer myTimer = new CountDownTimer(Long.MAX_VALUE, 50)
-    {
-        public void onTick(long millisUntilFinished)
-        {
-            myAV.postInvalidate();
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void onFinish()
-        {
-            myAV.postInvalidate();
-        }
-    }.start();
-
-    public void run(){
-
-    }
 }
