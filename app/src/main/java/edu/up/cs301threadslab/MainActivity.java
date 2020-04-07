@@ -2,6 +2,7 @@ package edu.up.cs301threadslab;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -54,4 +55,17 @@ public class MainActivity extends Activity
     public void onStartTrackingTouch(SeekBar seekBar) {}
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+    CountDownTimer myTimer = new CountDownTimer(Long.MAX_VALUE, 50)
+    {
+        public void onTick(long millisUntilFinished)
+        {
+            myAV.postInvalidate();
+        }
+
+        public void onFinish()
+        {
+            myAV.postInvalidate();
+        }
+    }.start();
 }
