@@ -15,11 +15,13 @@ import android.widget.SeekBar;
  * @version Fall 2015
  */
 public class MainActivity extends Activity
-        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+        implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Runnable {
 
     private AnimationView myAV;
     private Button theButton;
     private SeekBar theSeekBar;
+
+    boolean isRunning = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends Activity
         //Let me know when someone adjusts the seekbar
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
+
     }//onClick
 
     @Override
@@ -61,6 +64,11 @@ public class MainActivity extends Activity
         public void onTick(long millisUntilFinished)
         {
             myAV.postInvalidate();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         public void onFinish()
@@ -68,4 +76,8 @@ public class MainActivity extends Activity
             myAV.postInvalidate();
         }
     }.start();
+
+    public void run(){
+
+    }
 }
